@@ -1,4 +1,4 @@
-const {google} = require("googleapis");
+const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 const calendar = google.calendar("v3");
 /**
@@ -22,8 +22,7 @@ const credentials = {
   javascript_origins: ["https://valvegan.github.io", "http://localhost:3000"],
 };
 
-const {client_secret, client_id, redirect_uris, calendar_id}=
-credentials;
+const { client_secret, client_id, redirect_uris, calendar_id } = credentials;
 const oAuth2Client = new google.auth.OAuth2(
   client_id,
   client_secret,
@@ -65,34 +64,33 @@ module.exports.getAccessToken = async (event) => {
     client_id,
     client_secret,
     redirect_uris[0]
-    );
-    //decode authorization code extracted from the url query
-    const code = decodeURIComponent(`
+  );
+  //decode authorization code extracted from the url query
+  const code = decodeURIComponent(`
     ${event.pathParameters.code}`);
-    return new Promise ((resolve,reject)=>{
-      /**exchange authorization code for access token with a callback after the exchange,
-       * the callback is an arrow function with the results as parameters 
-       */
-      oAuth2Client.getToken(code, (err, token)=>{
-        if(err){
-          return reject(err);
-        }
-        return resolve(token);
-      });
-    })
-    .then((token)=>{
+  return new Promise((resolve, reject) => {
+    /**exchange authorization code for access token with a callback after the exchange,
+     * the callback is an arrow function with the results as parameters
+     */
+    oAuth2Client.getToken(code, (err, token) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(token);
+    });
+  })
+    .then((token) => {
       //respond with oAuth token
       return {
         statusCode: 200,
         body: JSON.stringify(token),
       };
     })
-    .catch((err)=>{
+    .catch((err) => {
       console.error(err);
       return {
         statusCode: 500,
-        body: JSON.stringify(err)
+        body: JSON.stringify(err),
       };
     });
 };
-
