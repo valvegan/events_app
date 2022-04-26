@@ -46,11 +46,11 @@ module.exports.getAuthURL = async () => {
     access_type: "offline",
     scope: SCOPES,
   });
-
   return {
     statusCode: 200,
     headers: {
       "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Credentials": true,
     },
     body: JSON.stringify({
       authUrl: authUrl,
@@ -59,19 +59,15 @@ module.exports.getAuthURL = async () => {
 };
 
 module.exports.getAccessToken = async (event) => {
-  //the values used to instantiate the OAuthClient are at the top of the file
   const oAuth2Client = new google.auth.OAuth2(
     client_id,
     client_secret,
     redirect_uris[0]
   );
-  //decode authorization code extracted from the url query
-  const code = decodeURIComponent(`
-    ${event.pathParameters.code}`);
+
+  const code = decodeURIComponent(`${event.pathParameters.code}`);
+
   return new Promise((resolve, reject) => {
-    /**exchange authorization code for access token with a callback after the exchange,
-     * the callback is an arrow function with the results as parameters
-     */
     oAuth2Client.getToken(code, (err, token) => {
       if (err) {
         return reject(err);
@@ -80,11 +76,11 @@ module.exports.getAccessToken = async (event) => {
     });
   })
     .then((token) => {
-      //respond with oAuth token
       return {
         statusCode: 200,
         headers: {
           "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": true,
         },
         body: JSON.stringify(token),
       };
@@ -93,6 +89,10 @@ module.exports.getAccessToken = async (event) => {
       console.error(err);
       return {
         statusCode: 500,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": true,
+        },
         body: JSON.stringify(err),
       };
     });

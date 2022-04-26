@@ -72,7 +72,7 @@
         if (decodeURIComponent(code) === code) {
           code = encodeURIComponent(codeValue.value);
         }
-        const getTokenRequest = getToken +  "/" + code;
+        const getTokenRequest = getToken + "/" + code;
         fetch(getTokenRequest)
           .then(function (response) {
             return response.json();
@@ -80,8 +80,6 @@
           .then(function (json) {
             accessTokenElement.innerText = JSON.stringify(json);
           });
-
-      
       };
     </script>
   </body>
