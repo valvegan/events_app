@@ -1,4 +1,4 @@
-import NProgress from 'nprogress';.
+import NProgress from 'nprogress';
 import { mockData } from "./mock-data";
 import axios from "axios";
 
