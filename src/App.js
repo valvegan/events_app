@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import './nprogress.css';
+import "./nprogress.css";
 import "./App.css";
 import EventList from "./EventList";
 import CitySearch from "./CitySearch";
 import NumberOfEvents from "./NumberOfEvents";
 import { extractLocations, getEvents } from "./api";
+import illustration from "./images/4 SCENE.svg";
 
 class App extends Component {
   state = {
@@ -39,6 +40,19 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <h1 className="app-title title">Welcome to the Events App!</h1>
+        <div className="img-container">
+          <img src={illustration} alt="basic illustration" class="image"></img>
+        </div>
+
+        <h3 className="app-description">
+          A serverless, progressive web application made with
+          React. 
+          <br></br>It works offline, too!
+        </h3>
+        <h2 className="sub-heading">
+          To browse through events, start by typing a city!
+        </h2>
         <CitySearch
           locations={this.state.locations}
           updateEvents={this.updateEvents}

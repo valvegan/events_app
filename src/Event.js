@@ -18,6 +18,7 @@ class Event extends Component {
         <h3 className="sub-heading">@{event.summary}</h3>
 
         {/*if buttonexpanded is true, then add class of"show less", else add class of "show -more" */}
+        <div className="details-container">
         <button
           onClick={() => this.showDetailsToggle()}
           className={this.state.buttonExpanded ? "show-less" : "show-more"}
@@ -34,7 +35,7 @@ class Event extends Component {
             </a>
             <p className="event-summary">{event.description}</p>
           </div>
-        )}
+        )}</div>
       </div>
     );
   }
