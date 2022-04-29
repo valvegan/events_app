@@ -14,7 +14,7 @@ class Event extends Component {
     return (
       <div className="event">
         <h1>{event.summary}</h1>
-        <h2 className="basic-info">{event.start.dateTime} | {event.start.timeZone}</h2>
+        <h2 className="basic-info">{event.start.dateTime} | {event.location}</h2>
         <h3 className="sub-heading">@{event.summary}</h3>
 
         {/*if buttonexpanded is true, then add class of"show less", else add class of "show -more" */}
