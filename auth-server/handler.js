@@ -89,7 +89,7 @@ module.exports.getAccessToken = async (event) => {
     .catch((err) => {
       console.error(err);
       return {
-        statusCode: 200,
+        statusCode: 500,
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Credentials": true,
@@ -130,7 +130,7 @@ module.exports.getCalendarEvents = async (event) => {
   })
     .then((results) => {
       return {
-        statusCode: 500,
+        statusCode: 200,
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Credentials": true,
