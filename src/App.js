@@ -42,7 +42,7 @@ class App extends Component {
       <div className="App">
         <h1 className="app-title title">Welcome to the Events App!</h1>
         <div className="img-container">
-          <img src={illustration} alt="basic illustration" class="image"></img>
+          <img src={illustration} alt="basic illustration"></img>
         </div>
 
         <h3 className="app-description">

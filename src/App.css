@@ -155,7 +155,10 @@ input[type="number"] {
 input[type="number"] {
   width: 50px;
 }
-
+input[type="text"]{
+  z-index: 0;
+  position: relative;
+}
 .city {
   width: 90%;
   display: block;
@@ -171,19 +174,20 @@ input[type="number"] {
 .suggestions {
   width: 250px;
   position: absolute;
-  z-index: 2;
-  align-self: center;
-  margin: 0;
-  top: 43px;
+  z-index: 200;
+  bottom: 70px;
   font-size: 14px;
+  left: 20%;
   box-shadow: 10px 10px 16px -12px rgba(0, 0, 0, 0.75);
 }
 
 .suggestions > li {
   text-align: left;
   padding: 8px 6px 8px 10px;
-  background-color: #eee;
+  background-color: var(--background-main);
   cursor: default;
+  border: 1px solid var(--contrast-color-2)
+  
 }
 
 .suggestions > li:last-child {
