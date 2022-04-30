@@ -62,6 +62,7 @@ describe("<App/> integration", () => {
     AppWrapper.unmount();
   });
 
+
   test('get list of all events when user selects "see all cities"', async () => {
     const AppWrapper = mount(<App />);
     const suggestionItems = AppWrapper.find(CitySearch).find(".suggestions li");

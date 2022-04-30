@@ -35,21 +35,18 @@ class App extends Component {
 
   updateEvents = (location) => {
     getEvents().then((events) => {
-      const numberEvent = this.updateNumber();
       const locationEvents =
         location === "all"
           ? events
           : events.filter((event) => event.location === location);
       this.setState({
-        eventsLength: numberEvent,
-        events: locationEvents.slice(0, numberEvent),
-        
+        events: locationEvents,
       });
     });
   };
 
   //update number will interact with NumberOfEvents component to update the eventsLength state, which in return updates the events state
- updateNumber = (number) => {
+  updateNumber = (number) => {
     getEvents().then((events) => {
       const numberEvents =
         number === 0
@@ -66,8 +63,6 @@ class App extends Component {
   
     });
   };
-
-  
 
   render() {
     return (
