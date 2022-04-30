@@ -39,28 +39,22 @@ class App extends Component {
         location === "all"
           ? events
           : events.filter((event) => event.location === location);
-      this.setState({
-        events: locationEvents,
-      });
+      this.truncateEvents(locationEvents, this.state.eventsLength)
     });
   };
 
   //update number will interact with NumberOfEvents component to update the eventsLength state, which in return updates the events state
   updateNumber = (number) => {
-    getEvents().then((events) => {
-      const numberEvents =
-        number === 0
-          ? //if no number is entered, 32 events get displayed
-            events
-          : //if number is entered, set number of events gets displayed
-            events.slice(0, number);
-      this.setState({
-        //events length set to number specified
-        eventsLength: number,
-        //events state set to const numberEvents variable
-        events: numberEvents,
-      });
-  
+    this.setState({
+      //events length set to number specified
+      eventsLength: number,
+    });
+    this.truncateEvents(this.state.events, number);
+  };
+
+  truncateEvents = (events, number) => {
+    this.setState({
+      events: events.slice(0, number),
     });
   };
 

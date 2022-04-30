@@ -62,7 +62,6 @@ describe("<App/> integration", () => {
     AppWrapper.unmount();
   });
 
-
   test('get list of all events when user selects "see all cities"', async () => {
     const AppWrapper = mount(<App />);
     const suggestionItems = AppWrapper.find(CitySearch).find(".suggestions li");
@@ -94,7 +93,10 @@ describe("<App/> integration", () => {
     expect(NumberOfEventsWrapper.state("eventsNumber")).not.toEqual(0);
     //can't use instance() like for citysearch?
     //if state of numberofeventswrapper is x (random), then length of events in app is the same
-    await NumberOfEventsWrapper.find("input.edit-number").simulate("change", {
+    //  await NumberOfEventsWrapper.find("input.edit-number").simulate("change", {
+    //   target: { value: selectedNumber },
+    //});
+    await NumberOfEventsWrapper.instance().inputChanged({
       target: { value: selectedNumber },
     });
     const allEvents = await getEvents();
