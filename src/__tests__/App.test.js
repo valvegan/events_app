@@ -84,25 +84,20 @@ describe("<App/> integration", () => {
     AppWrapper.unmount();
   });
 
-  test("input change in NumberOfEvents updates the eventLength state in App component", async () => {
+  test("input change in NumberOfEvents updates the events state in App component", async () => {
     const AppWrapper = mount(<App />);
     const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
     //generates random number 1-100
     const selectedNumber = Math.floor(Math.random() * (100 - 1 + 1) + 2);
     NumberOfEventsWrapper.setState({ eventsNumber: selectedNumber });
-    expect(NumberOfEventsWrapper.state("eventsNumber")).not.toEqual(0);
-    //can't use instance() like for citysearch?
     //if state of numberofeventswrapper is x (random), then length of events in app is the same
-    //  await NumberOfEventsWrapper.find("input.edit-number").simulate("change", {
-    //   target: { value: selectedNumber },
-    //});
+    const allEvents = await getEvents();
     await NumberOfEventsWrapper.instance().inputChanged({
       target: { value: selectedNumber },
     });
-    const allEvents = await getEvents();
     const eventsToShow = allEvents.slice(0, selectedNumber);
     expect(AppWrapper.state("events")).toEqual(eventsToShow);
-    expect(AppWrapper.state("eventsLength")).toEqual(selectedNumber);
     AppWrapper.unmount();
   });
+
 });
