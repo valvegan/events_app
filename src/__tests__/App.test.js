@@ -28,13 +28,11 @@ describe("<App /> component", () => {
 
 //integration testing
 describe("<App/> integration", () => {
-
   test('App passes "events" state as prop to EventList', () => {
     const AppWrapper = mount(<App />);
     const AppEventsState = AppWrapper.state("events");
     expect(AppEventsState).not.toEqual(undefined);
     expect(AppWrapper.find(EventList).props().events).toEqual(AppEventsState);
-    
   });
 
   test('App passes "locations" state as a prop to CitySearch', () => {
@@ -69,7 +67,9 @@ describe("<App/> integration", () => {
     const suggestionItems = AppWrapper.find(CitySearch).find(".suggestions li");
     await suggestionItems.at(suggestionItems.length - 1).simulate("click");
     const allEvents = await getEvents();
-    expect(AppWrapper.state("events")).toEqual(allEvents);
+    //need to slice on the test because the app state doesnt receive the full array
+    const allEvents2 = allEvents.slice(0, 32);
+    expect(AppWrapper.state("events")).toEqual(allEvents2);
     AppWrapper.unmount();
   });
 
@@ -88,18 +88,18 @@ describe("<App/> integration", () => {
     const AppWrapper = mount(<App />);
     const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
     //generates random number 1-100
-    const selectedNumber = Math.floor(Math.random() * (100 - 1 + 1) + 1);
+    const selectedNumber = Math.floor(Math.random() * (100 - 1 + 1) + 2);
     NumberOfEventsWrapper.setState({ eventsNumber: selectedNumber });
-    expect(NumberOfEventsWrapper.state('eventsNumber')).not.toEqual(0);
+    expect(NumberOfEventsWrapper.state("eventsNumber")).not.toEqual(0);
     //can't use instance() like for citysearch?
     //if state of numberofeventswrapper is x (random), then length of events in app is the same
-    await NumberOfEventsWrapper.find('input.edit-number').simulate('change', { target: { value: selectedNumber } });
+    await NumberOfEventsWrapper.find("input.edit-number").simulate("change", {
+      target: { value: selectedNumber },
+    });
     const allEvents = await getEvents();
     const eventsToShow = allEvents.slice(0, selectedNumber);
     expect(AppWrapper.state("events")).toEqual(eventsToShow);
     expect(AppWrapper.state("eventsLength")).toEqual(selectedNumber);
     AppWrapper.unmount();
   });
-
-
 });
