@@ -5,21 +5,25 @@ class NumberOfEvents extends Component {
     eventsNumber: 32,
   };
 
-  handleInputChanged = (event) => {
-    const value = event.target.value;
-    this.setState({ eventsNumber: value });
+  inputChanged = (event) => {
+    //if no number is set, numberValue is set to 32 by default
+    const numberValue = event.target.value === null ?
+    32 :
+    event.target.value;
+    this.setState({ eventsNumber: numberValue });
+    this.props.updateNumber(numberValue);
   };
 
   render() {
-    const { events } = this.props;
+    const { events, updateNumber } = this.props;
     return (
       <div className="eventsNumber">
         <label>Show</label>
         <input
           type="number"
           className="edit-number"
-          value={this.state.eventsNumber}
-          onChange={this.handleInputChanged}
+          placeholder={this.state.eventsNumber}
+          onChange={this.inputChanged}
         ></input>
         <label>Events</label>
       </div>
