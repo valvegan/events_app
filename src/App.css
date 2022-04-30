@@ -174,15 +174,18 @@ input[type="text"]{
 .CitySearch{
   position: relative;
   z-index: 1;
-  padding: 20px
+  padding: 20px;
+  overflow: visible !important;
 }
 
 .suggestions {
   width: 250px;
   position: absolute;
   z-index: 200;
+  top: 60%;
+  left: 15%;
   font-size: 14px;
-  width: 60%;
+  width: 20%;
   box-shadow: 10px 10px 16px -12px rgba(0, 0, 0, 0.75);
 }
 

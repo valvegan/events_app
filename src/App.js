@@ -54,6 +54,7 @@ class App extends Component {
 
   truncateEvents = (events, number) => {
     this.setState({
+      eventsLength: number,
       events: events.slice(0, number),
     });
   };
