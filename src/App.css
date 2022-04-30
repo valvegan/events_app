@@ -169,15 +169,20 @@ input[type="text"]{
   align-items: center;
   justify-content: center;
   font-family: var(--body-font);
+  
+}
+.CitySearch{
+  position: relative;
+  z-index: 1;
+  padding: 20px
 }
 
 .suggestions {
   width: 250px;
   position: absolute;
   z-index: 200;
-  bottom: 70px;
   font-size: 14px;
-  left: 20%;
+  width: 60%;
   box-shadow: 10px 10px 16px -12px rgba(0, 0, 0, 0.75);
 }
 
@@ -303,6 +308,7 @@ input[type="text"]{
     margin: auto;
     padding-bottom: 1rem;
   }
+  
   .event {
     width: 85%;
     margin: auto;
@@ -334,6 +340,7 @@ input[type="text"]{
     height: 17px;
     background-color: var(--contrast-color-2);
   }
+
   h1:before {
     width: 500px;
     left: 0%;
