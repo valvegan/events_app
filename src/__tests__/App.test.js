@@ -28,12 +28,13 @@ describe("<App /> component", () => {
 
 //integration testing
 describe("<App/> integration", () => {
+
   test('App passes "events" state as prop to EventList', () => {
     const AppWrapper = mount(<App />);
     const AppEventsState = AppWrapper.state("events");
     expect(AppEventsState).not.toEqual(undefined);
     expect(AppWrapper.find(EventList).props().events).toEqual(AppEventsState);
-    AppWrapper.unmount();
+    
   });
 
   test('App passes "locations" state as a prop to CitySearch', () => {
@@ -91,7 +92,8 @@ describe("<App/> integration", () => {
     NumberOfEventsWrapper.setState({ eventsNumber: selectedNumber });
     expect(NumberOfEventsWrapper.state('eventsNumber')).not.toEqual(0);
     //can't use instance() like for citysearch?
-    NumberOfEventsWrapper.find('input.edit-number').simulate('change', { target: { value: selectedNumber } });
+    //if state of numberofeventswrapper is x (random), then length of events in app is the same
+    await NumberOfEventsWrapper.find('input.edit-number').simulate('change', { target: { value: selectedNumber } });
     const allEvents = await getEvents();
     const eventsToShow = allEvents.slice(0, selectedNumber);
     expect(AppWrapper.state("events")).toEqual(eventsToShow);

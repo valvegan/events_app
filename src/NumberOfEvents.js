@@ -7,9 +7,7 @@ class NumberOfEvents extends Component {
 
   inputChanged = (event) => {
     //if no number is set, numberValue is set to 32 by default
-    const numberValue = event.target.value === null ?
-    32 :
-    event.target.value;
+    const numberValue = event.target.value;
     this.setState({ eventsNumber: numberValue });
     this.props.updateNumber(numberValue);
   };
