@@ -33,6 +33,16 @@ class App extends Component {
     this.mounted = false;
   }
 
+
+  //update number will interact with NumberOfEvents component to update the eventsLength state, which in return updates the events state
+  updateNumber = (number) => {
+    this.setState({
+      //events length set to number specified
+      eventsLength: number,
+      events: this.state.events.slice(0, number)
+    });
+    this.truncateEvents(this.state.events, number);
+  };
   updateEvents = (location) => {
     getEvents().then((events) => {
       const locationEvents =
@@ -43,18 +53,8 @@ class App extends Component {
     });
   };
 
-  //update number will interact with NumberOfEvents component to update the eventsLength state, which in return updates the events state
-  updateNumber = (number) => {
-    this.setState({
-      //events length set to number specified
-      eventsLength: number,
-    });
-    this.truncateEvents(this.state.events, number);
-  };
-
   truncateEvents = (events, number) => {
     this.setState({
-      eventsLength: number,
       events: events.slice(0, number),
     });
   };
