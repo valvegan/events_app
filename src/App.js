@@ -13,6 +13,7 @@ class App extends Component {
     locations: [],
     //setting default length number to 32
     eventsLength: 32,
+    savedLocation: "all",
   };
 
   componentDidMount() {
@@ -35,17 +36,14 @@ class App extends Component {
 
   updateEvents = (location, number) => {
     getEvents().then((events) => {
-      if(!number){
-        this.setState({
-          eventsLength: number
-        })
-      }
-      const locationEvents =
-        location === "all"
+      let setNumber = number ? number : (number = this.state.eventsLength);
+      let locationEvents =
+        location === "all" || !location
           ? events
           : events.filter((event) => event.location === location);
       this.setState({
-        events: locationEvents.slice(0, this.state.numberOfEvents),
+        events: locationEvents.slice(0, number),
+        eventsLength: setNumber,
       });
     });
   };
