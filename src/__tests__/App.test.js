@@ -87,18 +87,35 @@ describe("<App/> integration", () => {
   test("input change in NumberOfEvents updates the events state in App component", async () => {
     const AppWrapper = mount(<App />);
     const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
+    const CitySearchWrapper = AppWrapper.find(CitySearch);
+    //get all events
     const allEvents = await getEvents();
+    //extract just the location of all events (i.e "Berlin")
+    const locations = extractLocations(allEvents);
+    //set the suggestions state of citywrapper to the locations and assign variable
+    const suggestions = CitySearchWrapper.setState({ suggestions: locations });
+    //pick a random number from the number of locations available
+    const selectedIndex = Math.floor(Math.random() * suggestions.length);
+    //select the city at the specified index
+    const selectedCity = suggestions[selectedIndex];
     //generates random number
     const selectedNumber = Math.floor(Math.random() * (50 - 1 + 1) + 2);
-    await NumberOfEventsWrapper.instance().inputChanged({
-      target: { value: selectedNumber },
-    });
-    //not a function? to check if updateEvents with no location set updates the events state
-    await AppWrapper.instance().updateEvents(null, selectedNumber);
-    //the state of app is not set to all events
-    const eventsToShow = allEvents.slice(0, selectedNumber);
-    expect(eventsToShow).toHaveLength(selectedNumber);
+    NumberOfEventsWrapper.setState({ eventsNumber: selectedNumber });
+    //await CitySearchWrapper.instance().handleItemClicked(selectedCity)
+  
+    //comes up as empty array
+    /*const eventsToShow = await AppWrapper.instance().updateEvents(
+      selectedCity,
+      selectedNumber
+    );*/
+
+    //eventstoshow comes up as empty array 
+    const eventsToShow = allEvents
+      .filter((e) => e.location === selectedCity)
+      .slice(0, selectedNumber);
     expect(AppWrapper.state("events")).toEqual(eventsToShow);
+    expect(AppWrapper.state("events")).not.toEqual(0);
+    expect(AppWrapper.state("events")).toHaveLength(selectedNumber);
     AppWrapper.unmount();
   });
 });
