@@ -7,7 +7,7 @@ describe("<NumberOfEvents /> component", () => {
   let NumberOfEventsWrapper;
   beforeAll(() => {
     NumberOfEventsWrapper = shallow(
-      <NumberOfEvents eNumber={mockData.length} updateNumber={() => {}} />
+      <NumberOfEvents eNumber={mockData.length} updateEvents={() => {}} />
     );
   });
 

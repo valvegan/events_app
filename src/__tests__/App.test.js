@@ -87,17 +87,18 @@ describe("<App/> integration", () => {
   test("input change in NumberOfEvents updates the events state in App component", async () => {
     const AppWrapper = mount(<App />);
     const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
-    //generates random number 1-100
-    const selectedNumber = Math.floor(Math.random() * (100 - 1 + 1) + 2);
-    NumberOfEventsWrapper.setState({ eventsNumber: selectedNumber });
-    //if state of numberofeventswrapper is x (random), then length of events in app is the same
     const allEvents = await getEvents();
+    //generates random number
+    const selectedNumber = Math.floor(Math.random() * (50 - 1 + 1) + 2);
     await NumberOfEventsWrapper.instance().inputChanged({
       target: { value: selectedNumber },
     });
+    //not a function? to check if updateEvents with no location set updates the events state
+    await AppWrapper.instance().updateEvents(null, selectedNumber);
+    //the state of app is not set to all events
     const eventsToShow = allEvents.slice(0, selectedNumber);
+    expect(eventsToShow).toHaveLength(selectedNumber);
     expect(AppWrapper.state("events")).toEqual(eventsToShow);
     AppWrapper.unmount();
   });
-
 });
