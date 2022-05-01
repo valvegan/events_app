@@ -38,7 +38,7 @@ class App extends Component {
     getEvents().then((events) => {
       let setNumber = number ? number : (number = this.state.eventsLength);
       let locationEvents =
-        location === "all" || !location
+        location === "all"
           ? events
           : events.filter((event) => event.location === location);
       this.setState({
