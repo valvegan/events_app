@@ -1,10 +1,8 @@
 import { loadFeature, defineFeature } from "jest-cucumber";
 import React from "react";
-import { mount, shallow } from "enzyme";
+import { mount } from "enzyme";
 import App from "../App";
-import { mockData } from "../mock-data";
-import CitySearch from "../CitySearch";
-import { extractLocations, getEvents } from "../api";
+
 
 const feature = loadFeature("./src/features/showHideAnEventsDetails.feature");
 defineFeature(feature, (test) => {
@@ -12,7 +10,9 @@ defineFeature(feature, (test) => {
   test("An event element is collapsed by default", ({ given, when, then }) => {
     given("the main page has been opened", () => {});
     AppWrapper = mount(<App />);
-    when("the user opens the app", () => {});
+    when("the user opens the app", () => {
+      //
+    });
 
     then(
       "they will see a list of upcoming events with minimal information (extra information is collapsed)",
