@@ -44,6 +44,7 @@ class App extends Component {
       this.setState({
         events: locationEvents.slice(0, number),
         eventsLength: setNumber,
+        savedLocation: location
       });
     });
   };
@@ -68,7 +69,10 @@ class App extends Component {
           locations={this.state.locations}
           updateEvents={this.updateEvents}
         />
-        <NumberOfEvents updateEvents={this.updateEvents} />
+        <NumberOfEvents 
+        savedLocation={this.state.savedLocation} 
+        
+        updateEvents={this.updateEvents}/>
         <EventList events={this.state.events} />
       </div>
     );
