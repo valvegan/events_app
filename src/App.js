@@ -34,17 +34,19 @@ class App extends Component {
     this.mounted = false;
   }
 
-  updateEvents = (location, number) => {
+  updateEvents = (
+    location = this.state.savedLocation,
+    number = this.state.eventsLength
+  ) => {
     getEvents().then((events) => {
-      let setNumber = number ? number : (number = this.state.eventsLength);
       let locationEvents =
         location === "all"
           ? events
           : events.filter((event) => event.location === location);
       this.setState({
         events: locationEvents.slice(0, number),
-        eventsLength: setNumber,
-        savedLocation: location
+        eventsLength: number,
+        savedLocation: location,
       });
     });
   };
@@ -69,10 +71,7 @@ class App extends Component {
           locations={this.state.locations}
           updateEvents={this.updateEvents}
         />
-        <NumberOfEvents 
-        savedLocation={this.state.savedLocation} 
-        
-        updateEvents={this.updateEvents}/>
+        <NumberOfEvents updateEvents={this.updateEvents} />
         <EventList events={this.state.events} />
       </div>
     );

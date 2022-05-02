@@ -9,11 +9,11 @@ class NumberOfEvents extends Component {
     //if no number is set, numberValue is set to 32 by default
     const numberValue = event.target.value;
     this.setState({ eventsNumber: numberValue });
-    this.props.updateEvents(this.props.savedLocation, numberValue);
+    this.props.updateEvents(undefined, numberValue);
   };
 
   render() {
-    const { events, updateEvents, savedLocation } = this.props;
+    const { events, updateEvents } = this.props;
     return (
       <div className="eventsNumber">
         <label>Show</label>

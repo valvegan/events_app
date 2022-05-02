@@ -48,16 +48,19 @@ describe("<App/> integration", () => {
   test("get list of events matching the city selected by the user", async () => {
     const AppWrapper = mount(<App />);
     const CitySearchWrapper = AppWrapper.find(CitySearch);
+    const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
+    const allEvents = await getEvents();
     const locations = extractLocations(mockData);
     CitySearchWrapper.setState({ suggestions: locations });
     const suggestions = CitySearchWrapper.state("suggestions");
     const selectedIndex = Math.floor(Math.random() * suggestions.length);
     const selectedCity = suggestions[selectedIndex];
     await CitySearchWrapper.instance().handleItemClicked(selectedCity);
-    const allEvents = await getEvents();
-    const eventsToShow = allEvents.filter(
-      (event) => event.location === selectedCity
-    );
+    const eventsToShow = allEvents
+      .filter((event) => event.location === selectedCity)
+      .slice(0, 32);
+    NumberOfEventsWrapper.setState({ eventsNumber: 32 });
+    AppWrapper.setState({ savedLocation: selectedCity, eventsLength: 32 });
     expect(AppWrapper.state("events")).toEqual(eventsToShow);
     AppWrapper.unmount();
   });
@@ -67,9 +70,8 @@ describe("<App/> integration", () => {
     const suggestionItems = AppWrapper.find(CitySearch).find(".suggestions li");
     await suggestionItems.at(suggestionItems.length - 1).simulate("click");
     const allEvents = await getEvents();
-    //need to slice on the test because the app state doesnt receive the full array
-    const allEvents2 = allEvents.slice(0, 32);
-    expect(AppWrapper.state("events")).toEqual(allEvents2);
+    expect(AppWrapper.state("events")).toEqual(allEvents);
+    expect(AppWrapper.state("events")).toHaveLength(allEvents.length);
     AppWrapper.unmount();
   });
 
@@ -87,6 +89,7 @@ describe("<App/> integration", () => {
   test("input change in NumberOfEvents updates the events state in App component", async () => {
     const AppWrapper = mount(<App />);
     const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
+    //const allEvents = await getEvents();
     const selectedCity = "London, UK";
     //using mockdata I know there's 3 events for london and 2 for berlin, so for London I should receive 3 events
     const selectedNumber = 3;
@@ -94,11 +97,6 @@ describe("<App/> integration", () => {
     await NumberOfEventsWrapper.instance().inputChanged({
       target: { value: selectedNumber },
     });
-    //
-    //const eventsToShow = await AppWrapper.instance().updateEvents(
-    //   selectedCity,
-    //   selectedNumber
-    // );
     const eventsToShow = mockData
       .filter((e) => e.location === selectedCity)
       .slice(0, selectedNumber);
