@@ -43,6 +43,7 @@ class CitySearch extends Component {
         >
           {this.state.suggestions.map((suggestion) => (
             <li
+              className="list-item"
               key={suggestion}
               onClick={() => this.handleItemClicked(suggestion)}
             >
