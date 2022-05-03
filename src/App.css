@@ -180,10 +180,10 @@ input[type="text"] {
 .Alert {
   position: absolute;
   z-index: 200;
-  width: 30%;
+  width: 40%;
   right: 20%;
   background-color: var(--contrast-color-2);
-  padding: 7px;
+  margin: 7px;
   font-family: var(--titles-secondary);
   font-size: 1.3rem;
   border-radius: 20px;
@@ -303,6 +303,10 @@ input[type="text"] {
     width: 28%;
   }
 
+  .Alert {
+    width: 36%;
+  }
+
   .img-container {
     width: 270px; /* width of container */
     height: 365px; /* height of container */
@@ -357,6 +361,10 @@ input[type="text"] {
     width: 80%;
     margin: auto;
     padding-bottom: 1rem;
+  }
+
+  .Alert {
+    width: 30%;
   }
 
   .event {
