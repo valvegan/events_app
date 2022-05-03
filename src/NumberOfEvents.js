@@ -17,7 +17,7 @@ class NumberOfEvents extends Component {
       });
     } else if (numberValue > this.props.totalResNumber) {
       return this.setState({
-        eventsNumber: this.props.events.length,
+        eventsNumber: this.props.totalResNumber,
         errorText: null,
         warningText: `Oh no! There's only ${this.props.totalResNumber} events in this category!`,
       });
