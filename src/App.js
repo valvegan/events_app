@@ -6,6 +6,7 @@ import CitySearch from "./CitySearch";
 import NumberOfEvents from "./NumberOfEvents";
 import { extractLocations, getEvents } from "./api";
 import illustration from "./images/4 SCENE.svg";
+import { toBePartiallyChecked } from "@testing-library/jest-dom/dist/matchers";
 
 class App extends Component {
   state = {
@@ -14,6 +15,7 @@ class App extends Component {
     //setting default length number to 32
     eventsLength: 32,
     savedLocation: "all",
+    totalResNumber: "",
   };
 
   componentDidMount() {
@@ -21,10 +23,12 @@ class App extends Component {
     getEvents().then((events) => {
       if (this.mounted) {
         let sliceNumber = this.state.eventsLength;
+        let total = events.map((e) => e.id);
         this.setState({
           locations: extractLocations(events),
           //setting events array to return 32 objects
           events: events.slice(0, sliceNumber),
+          totalResNumber: total.length,
         });
       }
     });
@@ -43,10 +47,13 @@ class App extends Component {
         location === "all"
           ? events
           : events.filter((event) => event.location === location);
+          let totalsByLocation = locationEvents.length
+
       this.setState({
         events: locationEvents.slice(0, number),
         eventsLength: number,
         savedLocation: location,
+        totalResNumber: totalsByLocation
       });
     });
   };
@@ -71,7 +78,12 @@ class App extends Component {
           locations={this.state.locations}
           updateEvents={this.updateEvents}
         />
-        <NumberOfEvents updateEvents={this.updateEvents} />
+        <NumberOfEvents
+          updateEvents={this.updateEvents}
+          events={this.state.events}
+          totalResNumber={this.state.totalResNumber}
+          
+        />
         <EventList events={this.state.events} />
       </div>
     );

@@ -14,7 +14,7 @@
   --contrast-color-2: #c0557e;
 }
 
-:root{
+:root {
   background-color: var(--background-main);
 }
 
@@ -59,8 +59,8 @@ h1::before {
   background: var(--contrast-color);
   z-index: -1;
 }
-.app-title{
-  margin-left: 5px
+.app-title {
+  margin-left: 5px;
 }
 h1 {
   position: relative;
@@ -91,7 +91,7 @@ button:hover {
 }
 
 h2,
-h3{
+h3 {
   font-family: var(--body-font);
   margin-left: 10px;
 }
@@ -155,7 +155,7 @@ input[type="number"] {
 input[type="number"] {
   width: 50px;
 }
-input[type="text"]{
+input[type="text"] {
   z-index: 0;
   position: relative;
 }
@@ -169,14 +169,59 @@ input[type="text"]{
   align-items: center;
   justify-content: center;
   font-family: var(--body-font);
-  z-index: 100
-  
+  z-index: 100;
 }
-.CitySearch{
+.CitySearch {
   position: relative;
   padding: 20px;
   overflow: visible !important;
 }
+
+.Alert {
+  position: absolute;
+  z-index: 200;
+  width: 30%;
+  right: 20%;
+  background-color: var(--contrast-color-2);
+  padding: 7px;
+  font-family: var(--titles-secondary);
+  font-size: 1.3rem;
+  border-radius: 20px;
+  border: solid var(--titles-secondary);
+  border-width: 5px;
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+.eventsNumber .Alert{
+  right: 15%;
+  width: 25%;
+  background-color: var(--titles-secondary);
+  border: solid var(--contrast-color-2);
+  border-width: 5px;
+}
+
+
 
 .suggestions {
   width: 250px;
@@ -194,8 +239,7 @@ input[type="text"]{
   padding: 8px 6px 8px 10px;
   background-color: var(--background-main);
   cursor: default;
-  border: 1px solid var(--contrast-color-2)
-  
+  border: 1px solid var(--contrast-color-2);
 }
 
 .suggestions > li:last-child {
@@ -220,7 +264,7 @@ input[type="text"]{
   background-color: var(--background-main);
 }
 
-.calendar-link{
+.calendar-link {
   font-size: 1rem;
 }
 
@@ -255,8 +299,8 @@ input[type="text"]{
   h1:before {
     left: 0%;
   }
-  .suggestions{
-    width: 28%
+  .suggestions {
+    width: 28%;
   }
 
   .img-container {
@@ -314,7 +358,7 @@ input[type="text"]{
     margin: auto;
     padding-bottom: 1rem;
   }
-  
+
   .event {
     width: 85%;
     margin: auto;
@@ -324,7 +368,7 @@ input[type="text"]{
     font-size: 3rem;
   }
 
-  .sub-heading{
+  .sub-heading {
     margin-bottom: 10px;
   }
 }
@@ -332,10 +376,10 @@ input[type="text"]{
 @media all and (min-width: 900px) {
   /* Styles */
 
-  .App{
-    width: 80%
+  .App {
+    width: 80%;
   }
-  h1{
+  h1 {
     font-size: 5rem;
     width: 70%;
     text-align: center;
@@ -355,22 +399,21 @@ input[type="text"]{
     width: 350px; /* width of container */
     height: 410px; /* height of container */
   }
-  .app-description{
-    width: 70%
+  .app-description {
+    width: 70%;
   }
-
 }
 
 @media all and (min-width: 1250px) {
   /* Styles */
-  .App{
-    width: 50%
+  .App {
+    width: 50%;
   }
   .img-container {
-    left: 60%
+    left: 60%;
   }
-  .event{
-    width:60%
+  .event {
+    width: 60%;
   }
 }
 

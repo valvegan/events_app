@@ -24,7 +24,7 @@ class CitySearch extends Component {
       return this.setState({
         query: value,
         suggestions,
-        infoText: "",
+        infoText: null,
       });
     }
   };
@@ -42,7 +42,7 @@ class CitySearch extends Component {
     const { locations, updateEvents } = this.props;
     return (
       <div className="CitySearch">
-        <InfoAlert text={this.state.infoText} />
+        {this.state.infoText && <InfoAlert text={this.state.infoText} />}
         <input
           type="text"
           className="city"
