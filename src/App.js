@@ -4,9 +4,9 @@ import "./App.css";
 import EventList from "./EventList";
 import CitySearch from "./CitySearch";
 import NumberOfEvents from "./NumberOfEvents";
-import { extractLocations, getEvents } from "./api";
+import { extractLocations, getEvents, checkToken, getAccessToken } from "./api";
 import illustration from "./images/4 SCENE.svg";
-import { toBePartiallyChecked } from "@testing-library/jest-dom/dist/matchers";
+import WelcomeScreen from "./WelcomeScreen";
 
 class App extends Component {
   state = {
@@ -16,22 +16,30 @@ class App extends Component {
     eventsLength: 32,
     savedLocation: "all",
     totalResNumber: "",
+    showWelcomeScreen: undefined,
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     this.mounted = true;
-    getEvents().then((events) => {
-      if (this.mounted) {
-        let sliceNumber = this.state.eventsLength;
-        let total = events.map((e) => e.id);
-        this.setState({
-          locations: extractLocations(events),
-          //setting events array to return 32 objects
-          events: events.slice(0, sliceNumber),
-          totalResNumber: total.length,
-        });
-      }
-    });
+    const accessToken = localStorage.getItem("access_token");
+    const isTokenValid = (await checkToken(accessToken)).error ? false : true;
+    const searchParams = new URLSearchParams(window.location.search);
+    const code = searchParams.get("code");
+    this.setState({ showWelcomeScreen: !(code || isTokenValid) });
+    if ((code || isTokenValid) && this.mounted) {
+      getEvents().then((events) => {
+        if (this.mounted) {
+          let sliceNumber = this.state.eventsLength;
+          let total = events.map((e) => e.id);
+          this.setState({
+            locations: extractLocations(events),
+            //setting events array to return 32 objects
+            events: events.slice(0, sliceNumber),
+            totalResNumber: total.length,
+          });
+        }
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -47,20 +55,21 @@ class App extends Component {
         location === "all"
           ? events
           : events.filter((event) => event.location === location);
-          let totalsByLocation = locationEvents.length
+      let totalsByLocation = locationEvents.length;
 
       this.setState({
         events: locationEvents.slice(0, number),
         eventsLength: number,
         savedLocation: location,
-        totalResNumber: totalsByLocation
+        totalResNumber: totalsByLocation,
       });
     });
   };
 
   render() {
+    if (this.state.showWelcomeScreen === undefined)
+      return <div className="App" />;
     return (
-      //title and intro information (not tested)
       <div className="App">
         <h1 className="app-title title">Welcome to the Events App!</h1>
         <div className="img-container">
@@ -82,9 +91,14 @@ class App extends Component {
           updateEvents={this.updateEvents}
           events={this.state.events}
           totalResNumber={this.state.totalResNumber}
-          
         />
         <EventList events={this.state.events} />
+        <WelcomeScreen
+          showWelcomeScreen={this.state.showWelcomeScreen}
+          getAccessToken={() => {
+            getAccessToken();
+          }}
+        />
       </div>
     );
   }
