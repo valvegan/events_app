@@ -29,7 +29,7 @@ o.svg"
       </div>
       <a
         className="link"
-        href="https://valvegan.github.io/meet/privacy.html"
+        href="https://valvegan.github.io/events_app/privacy.html"
         rel="nofollow noopener"
       >
         Privacy policy
