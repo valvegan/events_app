@@ -46,7 +46,7 @@ class App extends Component {
         offlineText:
           "Oops! Check your internet connection, you are currently visiting the app offline (some events may not be loaded)",
       });
-    } else if(navigator.onLine){
+    } else if (navigator.onLine) {
       this.setState({
         offlineText: null,
       });
@@ -54,8 +54,10 @@ class App extends Component {
   }
 
   //setting state of the warning message (when offline) so that it can be removed
-  componentDidUpdate(){
-    setTimeout(() => this.setState({offlineText: null}), 6000);
+  componentDidUpdate() {
+    if (this.state.offlineText) {
+      setTimeout(() => this.setState({ offlineText: null }), 6000);
+    }
   }
 
   componentWillUnmount() {
@@ -93,9 +95,8 @@ class App extends Component {
   };
 
   render() {
-    
     return (
-      //same as welcome page 
+      //same as welcome page
       <div className="App">
         {this.state.offlineText && (
           <WarningAlert text={this.state.offlineText} />
@@ -109,36 +110,34 @@ class App extends Component {
           <br></br>It works offline, too!
         </h3>
 
-        {this.state.WelcomeScreen && 
-        <WelcomeScreen
-          showWelcomeScreen={this.state.showWelcomeScreen}
-          getAccessToken={() => {
-            getAccessToken();
-          }}
-        />}
+{/**show welcome screen */}
+        {!this.state.showWelcomeScreen ? (
+          <WelcomeScreen
+            showWelcomeScreen={this.state.showWelcomeScreen}
+            getAccessToken={() => {
+              getAccessToken();
+            }}
+          />
+        ) : 
+        //dont show welcome screen
+        (
+          <div>
+            <h2 className="sub-heading">
+              To browse through events, start by typing a city!
+            </h2>
 
-        
-
-        {/**end of same as welcome screen */}
-        {this.state.WelcomeScreen === undefined && 
-        <div>
-        <h2 className="sub-heading">
-          To browse through events, start by typing a city!
-        </h2>
-        {/**end of intro information and image (not tested) */}
-        <CitySearch
-          locations={this.state.locations}
-          updateEvents={this.updateEvents}
-        />
-        <NumberOfEvents
-          updateEvents={this.updateEvents}
-          events={this.state.events}
-          totalResNumber={this.state.totalResNumber}
-        />
-        <EventList events={this.state.events} />
-        </div>
-        }
-       
+            <CitySearch
+              locations={this.state.locations}
+              updateEvents={this.updateEvents}
+            />
+            <NumberOfEvents
+              updateEvents={this.updateEvents}
+              events={this.state.events}
+              totalResNumber={this.state.totalResNumber}
+            />
+            <EventList events={this.state.events} />
+          </div>
+        )}
       </div>
     );
   }
