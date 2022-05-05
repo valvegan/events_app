@@ -18,6 +18,7 @@ class App extends Component {
     savedLocation: "all",
     totalResNumber: "",
     showWelcomeScreen: undefined,
+    offlineText: null,
   };
 
   async componentDidMount() {
@@ -45,10 +46,6 @@ class App extends Component {
       this.setState({
         offlineText:
           "Oops! Check your internet connection, you are currently visiting the app offline (some events may not be loaded)",
-      });
-    } else if (navigator.onLine) {
-      this.setState({
-        offlineText: null,
       });
     }
   }
@@ -81,22 +78,21 @@ class App extends Component {
         savedLocation: location,
         totalResNumber: totalsByLocation,
       });
+      if (!navigator.onLine) {
+        this.setState({
+          offlineText:
+            "Oops! Check your internet connection, you are currently visiting the app offline (some events may not be loaded)",
+        });
+      }
     });
-    if (!navigator.onLine) {
-      this.setState({
-        offlineText:
-          "Oops! Check your internet connection, you are currently visiting the app offline (some events may not be loaded)",
-      });
-    } else {
-      this.setState({
-        offlineText: null,
-      });
-    }
   };
 
   render() {
+    if (this.state.showWelcomeScreen === undefined)
+      return <div className="App" />;
     return (
       //same as welcome page
+
       <div className="App">
         {this.state.offlineText && (
           <WarningAlert text={this.state.offlineText} />
@@ -109,18 +105,7 @@ class App extends Component {
           A serverless, progressive web application made with React.
           <br></br>It works offline, too!
         </h3>
-
-{/**show welcome screen */}
-        {!this.state.showWelcomeScreen ? (
-          <WelcomeScreen
-            showWelcomeScreen={this.state.showWelcomeScreen}
-            getAccessToken={() => {
-              getAccessToken();
-            }}
-          />
-        ) : 
-        //dont show welcome screen
-        (
+        {!this.state.showWelcomeScreen && (
           <div>
             <h2 className="sub-heading">
               To browse through events, start by typing a city!
@@ -138,6 +123,14 @@ class App extends Component {
             <EventList events={this.state.events} />
           </div>
         )}
+        {/**show welcome screen */}
+
+        <WelcomeScreen
+          showWelcomeScreen={this.state.showWelcomeScreen}
+          getAccessToken={() => {
+            getAccessToken();
+          }}
+        />
       </div>
     );
   }

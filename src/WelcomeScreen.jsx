@@ -1,6 +1,7 @@
 import React from "react";
 function WelcomeScreen(props) {
   return props.showWelcomeScreen ? (
+  
     <div className="WelcomeScreen">
       <h2 className="app-title title">
         Log in to see upcoming events around the world for full-stack developers
