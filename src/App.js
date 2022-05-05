@@ -18,7 +18,6 @@ class App extends Component {
     savedLocation: "all",
     totalResNumber: "",
     showWelcomeScreen: undefined,
-    offlineText: null,
   };
 
   async componentDidMount() {
@@ -27,7 +26,10 @@ class App extends Component {
     const isTokenValid = (await checkToken(accessToken)).error ? false : true;
     const searchParams = new URLSearchParams(window.location.search);
     const code = searchParams.get("code");
-    this.setState({ showWelcomeScreen: !(code || isTokenValid) });
+    const onlineCheck = navigator.onLine ? true : false
+    this.setState({ showWelcomeScreen: !(code || isTokenValid),
+    offlineText: onlineCheck ? "Oops! Check your internet connection, you are currently visiting the app offline (some events may not be loaded)"
+  : null });
     if ((code || isTokenValid) && this.mounted) {
       getEvents().then((events) => {
         if (this.mounted) {
@@ -40,12 +42,6 @@ class App extends Component {
             totalResNumber: total.length,
           });
         }
-      });
-    }
-    if (!navigator.onLine) {
-      this.setState({
-        offlineText:
-          "Oops! Check your internet connection, you are currently visiting the app offline (some events may not be loaded)",
       });
     }
   }
@@ -71,19 +67,16 @@ class App extends Component {
           ? events
           : events.filter((event) => event.location === location);
       let totalsByLocation = locationEvents.length;
+      const onlineCheck = navigator.onLine ? true : false
 
       this.setState({
         events: locationEvents.slice(0, number),
         eventsLength: number,
         savedLocation: location,
         totalResNumber: totalsByLocation,
+        offlineText: onlineCheck ? "Oops! Check your internet connection, you are currently visiting the app offline (some events may not be loaded)"
+  : null
       });
-      if (!navigator.onLine) {
-        this.setState({
-          offlineText:
-            "Oops! Check your internet connection, you are currently visiting the app offline (some events may not be loaded)",
-        });
-      }
     });
   };
 
@@ -94,7 +87,7 @@ class App extends Component {
       //same as welcome page
 
       <div className="App">
-        {this.state.offlineText && (
+        {!this.state.offlineText && (
           <WarningAlert text={this.state.offlineText} />
         )}
         <h1 className="app-title title">Welcome to the Events App!</h1>
