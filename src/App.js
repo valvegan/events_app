@@ -53,6 +53,11 @@ class App extends Component {
     }
   }
 
+  //setting state of the warning message (when offline) so that it can be removed
+  componentDidUpdate(){
+    setTimeout(() => this.setState({offlineText: null}), 6000);
+  }
+
   componentWillUnmount() {
     this.mounted = false;
   }

@@ -23,6 +23,14 @@
   overflow: hidden;
 }
 
+.App {
+  margin: auto;
+  background-color: var(--background-containers);
+  color: var(--titles);
+  padding: 3px;
+}
+
+/*welcome screen*/
 .img-container {
   width: 300px; /* width of container */
   height: 165px; /* height of container */
@@ -32,12 +40,6 @@
 
 .img-container img {
   margin: -20px -110px 0px -40px;
-}
-.App {
-  margin: auto;
-  background-color: var(--background-containers);
-  color: var(--titles);
-  padding: 3px;
 }
 
 .WelcomeScreen h2 {
@@ -68,6 +70,10 @@
   font-size: 2rem;
   border-radius: 35px;
 }
+/*end of welcome screen*/
+
+/*links*/
+
 .link, .calendar-link {
   font-family: var(--body-font);
   font-size: 1.5rem;
@@ -82,6 +88,8 @@
 .link:hover, .calendar-link:hover{
   color: var(--titles-secondary)
 }
+
+/*main title*/
 h1::after {
   content: "";
   position: absolute;
@@ -225,6 +233,7 @@ input[type="text"] {
   overflow: visible !important;
 }
 
+/*alter popups*/
 .Alert {
   position: absolute;
   z-index: 200;
@@ -237,10 +246,21 @@ input[type="text"] {
   border-radius: 20px;
   border: solid var(--titles-secondary);
   border-width: 5px;
-  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  animation: disappear 6s ease-in, shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   perspective: 1000px;
+  padding: 10px
+}
+
+
+@keyframes disappear{
+  30% {
+    opacity: 100;
+  }
+  100%{
+    opacity: 0;
+  }
 }
 
 @keyframes shake {
@@ -337,6 +357,7 @@ input[type="text"] {
 /* from phones to ipads*/
 @media all and (min-device-width: 480px) {
   /* Styles */
+
 
   h1 {
     font-size: 3.5rem;
