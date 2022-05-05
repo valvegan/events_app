@@ -43,12 +43,13 @@ class App extends Component {
     }
     if (!navigator.onLine) {
       this.setState({
-        offlineText: 'Oops! Check your internet connection, you are currently visiting the app offline (some events may not be loaded)'
-      })
+        offlineText:
+          "Oops! Check your internet connection, you are currently visiting the app offline (some events may not be loaded)",
+      });
     } else {
       this.setState({
-        offlineText: null
-      })
+        offlineText: null,
+      });
     }
   }
 
@@ -74,6 +75,16 @@ class App extends Component {
         totalResNumber: totalsByLocation,
       });
     });
+    if (!navigator.onLine) {
+      this.setState({
+        offlineText:
+          "Oops! Check your internet connection, you are currently visiting the app offline (some events may not be loaded)",
+      });
+    } else {
+      this.setState({
+        offlineText: null,
+      });
+    }
   };
 
   render() {
@@ -81,7 +92,9 @@ class App extends Component {
       return <div className="App" />;
     return (
       <div className="App">
-        <WarningAlert text={this.state.offlineText} />
+        {this.state.offlineText && (
+          <WarningAlert text={this.state.offlineText} />
+        )}
         <h1 className="app-title title">Welcome to the Events App!</h1>
         <div className="img-container">
           <img src={illustration} alt="basic illustration"></img>
