@@ -26,7 +26,7 @@ class App extends Component {
     const isTokenValid = (await checkToken(accessToken)).error ? false : true;
     const searchParams = new URLSearchParams(window.location.search);
     const code = searchParams.get("code");
-    const onlineCheck = navigator.onLine ? true : false
+    const onlineCheck = navigator.onLine ? false : true
     this.setState({ showWelcomeScreen: !(code || isTokenValid),
     offlineText: onlineCheck ? "Oops! Check your internet connection, you are currently visiting the app offline (some events may not be loaded)"
   : null });
@@ -67,7 +67,7 @@ class App extends Component {
           ? events
           : events.filter((event) => event.location === location);
       let totalsByLocation = locationEvents.length;
-      const onlineCheck = navigator.onLine ? true : false
+      const onlineCheck = navigator.onLine ? false : true
 
       this.setState({
         events: locationEvents.slice(0, number),
@@ -87,7 +87,7 @@ class App extends Component {
       //same as welcome page
 
       <div className="App">
-        {!this.state.offlineText && (
+        {this.state.offlineText && (
           <WarningAlert text={this.state.offlineText} />
         )}
         <h1 className="app-title title">Welcome to the Events App!</h1>
