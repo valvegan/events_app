@@ -7,6 +7,7 @@ import NumberOfEvents from "./NumberOfEvents";
 import { extractLocations, getEvents, checkToken, getAccessToken } from "./api";
 import illustration from "./images/4 SCENE.svg";
 import WelcomeScreen from "./WelcomeScreen";
+import { WarningAlert } from "./Alert";
 
 class App extends Component {
   state = {
@@ -40,6 +41,15 @@ class App extends Component {
         }
       });
     }
+    if (!navigator.onLine) {
+      this.setState({
+        offlineText: 'Oops! Check your internet connection, you are currently visiting the app offline (some events may not be loaded)'
+      })
+    } else {
+      this.setState({
+        offlineText: null
+      })
+    }
   }
 
   componentWillUnmount() {
@@ -71,6 +81,7 @@ class App extends Component {
       return <div className="App" />;
     return (
       <div className="App">
+        <WarningAlert text={this.state.offlineText} />
         <h1 className="app-title title">Welcome to the Events App!</h1>
         <div className="img-container">
           <img src={illustration} alt="basic illustration"></img>
