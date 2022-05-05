@@ -46,7 +46,7 @@ class App extends Component {
         offlineText:
           "Oops! Check your internet connection, you are currently visiting the app offline (some events may not be loaded)",
       });
-    } else {
+    } else if(navigator.onLine){
       this.setState({
         offlineText: null,
       });
@@ -88,9 +88,9 @@ class App extends Component {
   };
 
   render() {
-    if (this.state.showWelcomeScreen === undefined)
-      return <div className="App" />;
+    
     return (
+      //same as welcome page 
       <div className="App">
         {this.state.offlineText && (
           <WarningAlert text={this.state.offlineText} />
@@ -103,6 +103,20 @@ class App extends Component {
           A serverless, progressive web application made with React.
           <br></br>It works offline, too!
         </h3>
+
+        {this.state.WelcomeScreen && 
+        <WelcomeScreen
+          showWelcomeScreen={this.state.showWelcomeScreen}
+          getAccessToken={() => {
+            getAccessToken();
+          }}
+        />}
+
+        
+
+        {/**end of same as welcome screen */}
+        {this.state.WelcomeScreen === undefined && 
+        <div>
         <h2 className="sub-heading">
           To browse through events, start by typing a city!
         </h2>
@@ -117,12 +131,9 @@ class App extends Component {
           totalResNumber={this.state.totalResNumber}
         />
         <EventList events={this.state.events} />
-        <WelcomeScreen
-          showWelcomeScreen={this.state.showWelcomeScreen}
-          getAccessToken={() => {
-            getAccessToken();
-          }}
-        />
+        </div>
+        }
+       
       </div>
     );
   }

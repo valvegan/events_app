@@ -1,13 +1,20 @@
 import React from "react";
-import "./WelcomeScreen.css";
 function WelcomeScreen(props) {
   return props.showWelcomeScreen ? (
     <div className="WelcomeScreen">
-      <h1>Welcome to the Meet app</h1>
-      <h4>
+      <h2 className="app-title title">
         Log in to see upcoming events around the world for full-stack developers
-      </h4>
+      </h2>
       <div className="button_cont" align="center">
+        <button
+          onClick={() => {
+            props.getAccessToken();
+          }}
+          rel="nofollow noopener"
+          class="btn-text"
+        >
+          <b>Sign in with google</b>
+        </button>
         <div class="google-btn">
           <div class="google-icon-wrapper">
             <img
@@ -17,19 +24,10 @@ o.svg"
               alt="Google sign-in"
             />
           </div>
-          <button
-            onClick={() => {
-              props.getAccessToken();
-            }}
-            rel="nofollow noopener"
-            class="btn-text"
-          >
-            <b>Sign in with google</b>
-          </button>
         </div>
       </div>
-      <a
-        href="https://YOUR_GITHUB_USERNAME.github.io/meet/privacy.html"
+      <a className="link"
+        href="https://valvegan.github.io/meet/privacy.html"
         rel="nofollow noopener"
       >
         Privacy policy
