@@ -1,5 +1,6 @@
 import NProgress from "nprogress";
 import { mockData } from "./mock-data";
+import { items } from "./items";
 import axios from "axios";
 
 export const extractLocations = (events) => {
@@ -55,7 +56,7 @@ export const getEvents = async () => {
   NProgress.start();
   if (window.location.href.startsWith("http://localhost")) {
     NProgress.done();
-    return mockData;
+    return items;
   }
   if (!navigator.onLine) {
     const data = localStorage.getItem("lastEvents");

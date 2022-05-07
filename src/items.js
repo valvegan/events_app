@@ -1,4 +1,4 @@
-[
+let items = [
   {
    "kind": "calendar#event",
    "etag": "\"3181161784712000\"",
@@ -15237,3 +15237,6 @@
    "eventType": "default"
   }
  ]
+
+ items = JSON.parse(JSON.stringify(items));
+export { items };

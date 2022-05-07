@@ -15,6 +15,7 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  ResponsiveContainer
 } from "recharts";
 
 class App extends Component {
@@ -26,6 +27,7 @@ class App extends Component {
     savedLocation: "all",
     totalResNumber: "",
     showWelcomeScreen: undefined,
+    fullEvents: [],
   };
 
   async componentDidMount() {
@@ -42,13 +44,15 @@ class App extends Component {
         : null,
     });
     if (
-      //(code || isTokenValid) && 
-    this.mounted) {
+      //(code || isTokenValid) &&
+      this.mounted
+    ) {
       getEvents().then((events) => {
         let sliceNumber = this.state.eventsLength;
         let total = events.map((e) => e.id);
         this.setState({
           locations: extractLocations(events),
+          fullEvents: events,
           //setting events array to return 32 objects
           events: events.slice(0, sliceNumber),
           totalResNumber: total.length,
@@ -93,10 +97,10 @@ class App extends Component {
     });
   };
 
-  getData = () => {
-    const { locations, events } = this.state;
+  getData = (events) => {
+    const { locations, fullEvents } = this.state;
     const data = locations.map((location) => {
-      const number = events.filter(
+      const number = fullEvents.filter(
         (event) => event.location === location
       ).length;
       const city = location.split(", ").shift();
@@ -139,10 +143,8 @@ class App extends Component {
             events={this.state.events}
             totalResNumber={this.state.totalResNumber}
           />
-
+<ResponsiveContainer height={400}>
           <ScatterChart
-            width={400}
-            height={400}
             margin={{
               top: 20,
               right: 20,
@@ -162,8 +164,10 @@ class App extends Component {
             <Tooltip cursor={{ strokeDasharray: "3 3" }} />
             <Scatter data={this.getData()} fill="#8884d8" />
           </ScatterChart>
+          </ResponsiveContainer>
 
           <EventList events={this.state.events} />
+
         </div>
         {
           <WelcomeScreen
