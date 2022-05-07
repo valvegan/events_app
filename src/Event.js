@@ -2,10 +2,14 @@ import React, { Component } from "react";
 import locationSvg from "./images/location.svg";
 
 class Event extends Component {
-  state = {
-    buttonExpanded: false,
-    date: "",
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      buttonExpanded: false,
+      date: "",
+    };
+  }
 
   showDetailsToggle() {
     //if there is a click, the state goes from false to true, then true to false
@@ -15,55 +19,55 @@ class Event extends Component {
   render() {
     const { event } = this.props;
 
-      const eventDate = event.start.dateTime;
-      let months = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-      ];
-      let splitDate = eventDate.split(/[-T]+/);
-      let exactTime = splitDate[3].split("+")[0];
-      let extraTime = splitDate[3].split("+")[1].slice(1,2)
-      let yearDate = splitDate[0];
-      let yearMonth = splitDate[1].includes("0")
-        ? splitDate[1].slice(1, 2)
-        : splitDate[1];
-      let yearDay = splitDate[2];
-      var yearMonthInt = parseInt(yearMonth);
-      let monthStr = months.slice(yearMonthInt, yearMonthInt + 1);
-      let dateToConvert = `${monthStr} ${yearDay}, ${yearDate} ${exactTime}`;
-      let converD = new Date(dateToConvert);
-      let weekdays = [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday",
-      ];
-      let dayInt = converD.getDay();
-      //this is the exact weekday (name)
-      let actualDay = weekdays[dayInt];
-      let convertedDate =
-        `${actualDay} ${yearDay}/${splitDate[1]}/${yearDate}, at ${exactTime}`
-      
-      
-      
+    const eventDate = event.start.dateTime;
+    let months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    let splitDate = eventDate.split(/[-T]+/);
+    let exactTime = splitDate[3].split("+")[0].slice(0, 5);
+    let extraTime = splitDate[3].split("+")[1].slice(1, 2);
+    let yearDate = splitDate[0];
+    let yearMonth = splitDate[1].includes("0")
+      ? splitDate[1].slice(1, 2)
+      : splitDate[1];
+    let yearDay = splitDate[2];
+    var yearMonthInt = parseInt(yearMonth);
+    let monthStr = months.slice(yearMonthInt, yearMonthInt + 1);
+    let dateToConvert = `${monthStr} ${yearDay}, ${yearDate} ${exactTime}`;
+    let converD = new Date(dateToConvert);
+    let weekdays = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ];
+    let dayInt = converD.getDay();
+    //this is the exact weekday (name)
+    let actualDay = weekdays[dayInt];
+    let convertedDate = `${actualDay} ${yearDay}/${splitDate[1]}/${yearDate}, at ${exactTime}`;
+
     return (
       <div className="event">
         <h1>{event.summary}</h1>
         <h2 className="basic-info">
-          {convertedDate} <span>Timezone: {event.start.timeZone} + {extraTime} hours</span>
+          {convertedDate} <br></br>
+          <span>
+            Timezone: {event.start.timeZone} + {extraTime} hours
+          </span>
         </h2>
         <div className="location-container">
           <img src={locationSvg} alt="location icon"></img>

@@ -166,8 +166,8 @@ h2 span {
   justify-content: center;
   align-items: center;
 }
-.location-container img{
-  width: 10%
+.location-container img {
+  width: 10%;
 }
 .sub-heading::after {
   content: "";
@@ -362,10 +362,51 @@ input[type="text"] {
   font-size: 1.5rem;
   color: var(--titles-secondary);
 }
+
+
 .detais-container {
   display: flex;
   flex-direction: column;
 }
+
+
+.login-button {
+  color: #494949;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #ffffff;
+  padding: 20px;
+  border: 4px solid #494949;
+  display: inline-block;
+  transition: all 0.4s ease 0s;
+  min-width: 10rem;
+  margin: 1rem;
+}
+
+.login-button {
+  color: #494949;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #ffffff;
+  border: 4px solid #494949;
+  display: inline-block;
+  transition: all 0.4s ease 0s;
+  min-width: 10rem;
+  margin: 1rem;
+}
+.charts-container button {
+  display: flex;
+  margin-top: 10px;
+}
+.charts-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.charts-container-hide :nth-child(1) {
+  order: 5;
+}
+
 
 /* from phones to ipads*/
 @media all and (min-device-width: 480px) {
@@ -420,7 +461,7 @@ input[type="text"] {
   .event-summary {
     font-size: 1.3rem;
   }
-  /** .data-vis-wrapper {
+  .data-vis-wrapper {
     flex-direction: row;
   }
   .data-vis-wrapper .recharts-responsive-container {
@@ -428,7 +469,9 @@ input[type="text"] {
     max-width: 50%;
     min-width: auto;
     margin: 0 auto;
-  }*/
+  }
+
+
 }
 
 @media all and (min-width: 630px) {
@@ -509,42 +552,3 @@ input[type="text"] {
   }
 }
 
-/*other styles (copied from achievement exercise*/
-
-.data-vis-wrapper {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-.data-vis-wrapper .recharts-responsive-container {
-  min-width: 100%;
-  display: flex;
-}
-.recharts-surface {
-  overflow: visible;
-}
-
-.login-button {
-  color: #494949;
-  text-transform: uppercase;
-  text-decoration: none;
-  background: #ffffff;
-  padding: 20px;
-  border: 4px solid #494949;
-  display: inline-block;
-  transition: all 0.4s ease 0s;
-  min-width: 10rem;
-  margin: 1rem;
-}
-
-.login-button {
-  color: #494949;
-  text-transform: uppercase;
-  text-decoration: none;
-  background: #ffffff;
-  border: 4px solid #494949;
-  display: inline-block;
-  transition: all 0.4s ease 0s;
-  min-width: 10rem;
-  margin: 1rem;
-}

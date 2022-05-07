@@ -18,6 +18,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import EventGenre from "./EventGenre";
+import EventGenreByCity from "./EventGenreByCity";
 
 class App extends Component {
   state = {
@@ -29,6 +30,7 @@ class App extends Component {
     totalResNumber: "",
     showWelcomeScreen: undefined,
     fullEvents: [],
+    buttonExpanded: false,
   };
 
   async componentDidMount() {
@@ -45,7 +47,7 @@ class App extends Component {
         : null,
     });
     if (
-      //(code || isTokenValid) &&
+      (code || isTokenValid) &&
       this.mounted
     ) {
       getEvents().then((events) => {
@@ -105,12 +107,18 @@ class App extends Component {
         (event) => event.location === location
       ).length;
       const city = location.split(", ").shift();
+
       return { city, number };
     });
+
     console.log(data);
     return data;
   };
-  
+
+  showDetailsToggle() {
+    //if there is a click, the state goes from false to true, then true to false
+    this.setState({ buttonExpanded: !this.state.buttonExpanded });
+  }
 
   render() {
     if (this.state.showWelcomeScreen === undefined)
@@ -132,7 +140,6 @@ class App extends Component {
         </h3>
 
         <div>
-        
           <h2 className="sub-heading">
             To browse through events, start by typing a city!
           </h2>
@@ -146,33 +153,53 @@ class App extends Component {
             events={this.state.events}
             totalResNumber={this.state.totalResNumber}
           />
+          <div className={this.state.buttonExpanded ? "charts-container charts-container-hide" : "charts-container"}>
+            <button
+              onClick={() => this.showDetailsToggle()}
+              className={this.state.buttonExpanded ? "show-less" : "show-more"}
+            >
+              {/**button text is hide details if state is true, otherwise it's "see details" */}
+              {this.state.buttonExpanded
+                ? "Hide data charts"
+                : "View Data Charts"}
+            </button>
 
-          <div className="data-vis-wrapper">
-            <EventGenre events={this.state.fullEvents} />
+            {this.state.buttonExpanded && (
+              <div className="data-vis-wrapper">
+                <EventGenre events={this.state.fullEvents} />
+                <EventGenreByCity events={this.state.events} />
+                <div className="scatter-chart">
+                  <ResponsiveContainer height={300}>
+                    <ScatterChart
+                      margin={{
+                        top: 20,
+                        right: 20,
+                        bottom: 20,
+                        left: 0,
+                      }}
+                    >
+                      <CartesianGrid />
+                      <XAxis
+                        type="category"
+                        dataKey="city"
+                        name="city"
+                        allowDecimals={false}
+                      />
+                      <YAxis
+                        type="number"
+                        dataKey="number"
+                        name="number of events"
+                      />
 
-            <ResponsiveContainer height={400}>
-              <ScatterChart
-                margin={{
-                  top: 20,
-                  right: 20,
-                  bottom: 20,
-                  left: 20,
-                }}
-              >
-                <CartesianGrid />
-                <XAxis
-                  type="category"
-                  dataKey="city"
-                  name="city"
-                  allowDecimals={false}
-                />
-                <YAxis type="number" dataKey="number" name="number of events" />
-
-                <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-                <Scatter data={this.getData()} fill="#8884d8" />
-              </ScatterChart>
-            </ResponsiveContainer>
+                      <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+                      <Scatter data={this.getData()} fill="#8884d8" />
+                    </ScatterChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+            )}
           </div>
+
           <EventList events={this.state.events} />
         </div>
         {
