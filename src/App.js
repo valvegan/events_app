@@ -15,8 +15,9 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  ResponsiveContainer
+  ResponsiveContainer,
 } from "recharts";
+import EventGenre from "./EventGenre";
 
 class App extends Component {
   state = {
@@ -109,6 +110,7 @@ class App extends Component {
     console.log(data);
     return data;
   };
+  
 
   render() {
     if (this.state.showWelcomeScreen === undefined)
@@ -130,6 +132,7 @@ class App extends Component {
         </h3>
 
         <div>
+        
           <h2 className="sub-heading">
             To browse through events, start by typing a city!
           </h2>
@@ -143,31 +146,34 @@ class App extends Component {
             events={this.state.events}
             totalResNumber={this.state.totalResNumber}
           />
-<ResponsiveContainer height={400}>
-          <ScatterChart
-            margin={{
-              top: 20,
-              right: 20,
-              bottom: 20,
-              left: 20,
-            }}
-          >
-            <CartesianGrid />
-            <XAxis
-              type="category"
-              dataKey="city"
-              name="city"
-              allowDecimals={false}
-            />
-            <YAxis type="number" dataKey="number" name="number of events" />
 
-            <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-            <Scatter data={this.getData()} fill="#8884d8" />
-          </ScatterChart>
-          </ResponsiveContainer>
+          <div className="data-vis-wrapper">
+            <EventGenre events={this.state.fullEvents} />
 
+            <ResponsiveContainer height={400}>
+              <ScatterChart
+                margin={{
+                  top: 20,
+                  right: 20,
+                  bottom: 20,
+                  left: 20,
+                }}
+              >
+                <CartesianGrid />
+                <XAxis
+                  type="category"
+                  dataKey="city"
+                  name="city"
+                  allowDecimals={false}
+                />
+                <YAxis type="number" dataKey="number" name="number of events" />
+
+                <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+                <Scatter data={this.getData()} fill="#8884d8" />
+              </ScatterChart>
+            </ResponsiveContainer>
+          </div>
           <EventList events={this.state.events} />
-
         </div>
         {
           <WelcomeScreen

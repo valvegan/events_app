@@ -74,19 +74,21 @@
 
 /*links*/
 
-.link, .calendar-link {
+.link,
+.calendar-link {
   font-family: var(--body-font);
   font-size: 1.5rem;
   display: block;
   text-align: center;
   padding: 20px;
-  color: var(--contrast-color-2)
+  color: var(--contrast-color-2);
 }
-.calendar-link{
-  padding: 5px
+.calendar-link {
+  padding: 5px;
 }
-.link:hover, .calendar-link:hover{
-  color: var(--titles-secondary)
+.link:hover,
+.calendar-link:hover {
+  color: var(--titles-secondary);
 }
 
 /*main title*/
@@ -135,10 +137,10 @@ button {
   margin: auto;
 }
 
-.details-container button{
-  display: flex
+.details-container button {
+  display: flex;
 }
-button:hover{
+button:hover {
   background-color: var(--buttons-hover);
   color: var(--background-main);
 }
@@ -148,6 +150,9 @@ h3 {
   font-family: var(--body-font);
   margin-left: 10px;
 }
+h2 span {
+  font-size: 1rem;
+}
 .about {
   text-align: center;
 }
@@ -156,7 +161,14 @@ h3 {
   z-index: 1;
   width: 100%;
 }
-
+.location-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.location-container img{
+  width: 10%
+}
 .sub-heading::after {
   content: "";
   position: absolute;
@@ -246,19 +258,19 @@ input[type="text"] {
   border-radius: 20px;
   border: solid var(--titles-secondary);
   border-width: 5px;
-  animation: disappear 6s ease-in, shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  animation: disappear 6s ease-in,
+    shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   perspective: 1000px;
-  padding: 10px
+  padding: 10px;
 }
 
-
-@keyframes disappear{
+@keyframes disappear {
   30% {
     opacity: 100;
   }
-  100%{
+  100% {
     opacity: 0;
     display: none;
   }
@@ -358,7 +370,6 @@ input[type="text"] {
 /* from phones to ipads*/
 @media all and (min-device-width: 480px) {
   /* Styles */
-
 
   h1 {
     font-size: 3.5rem;
