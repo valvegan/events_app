@@ -46,10 +46,7 @@ class App extends Component {
         ? "Oops! Check your internet connection, you are currently visiting the app offline (some events may not be loaded)"
         : null,
     });
-    if (
-      (code || isTokenValid) &&
-      this.mounted
-    ) {
+    if ((code || isTokenValid) && this.mounted) {
       getEvents().then((events) => {
         let sliceNumber = this.state.eventsLength;
         let total = events.map((e) => e.id);
@@ -153,7 +150,13 @@ class App extends Component {
             events={this.state.events}
             totalResNumber={this.state.totalResNumber}
           />
-          <div className={this.state.buttonExpanded ? "charts-container charts-container-hide" : "charts-container"}>
+          <div
+            className={
+              this.state.buttonExpanded
+                ? "charts-container charts-container-hide"
+                : "charts-container"
+            }
+          >
             <button
               onClick={() => this.showDetailsToggle()}
               className={this.state.buttonExpanded ? "show-less" : "show-more"}

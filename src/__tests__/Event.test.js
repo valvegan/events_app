@@ -81,7 +81,7 @@ describe("<Event /> component", () => {
   //p mockData.description
   test("check for event description when expanded(state false)", () => {
     EventWrapper.setState({
-      buttonExpanded: true,
+      buttonExpanded: true
     });
     //expect button with class "calendar-link"
     expect(EventWrapper.find("p.event-summary")).toHaveLength(1);

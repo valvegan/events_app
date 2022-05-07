@@ -2,14 +2,10 @@ import React, { Component } from "react";
 import locationSvg from "./images/location.svg";
 
 class Event extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      buttonExpanded: false,
-      date: "",
-    };
-  }
+  state = {
+    buttonExpanded: false,
+    date: "",
+  };
 
   showDetailsToggle() {
     //if there is a click, the state goes from false to true, then true to false
