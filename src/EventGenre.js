@@ -32,7 +32,8 @@ const EventGenre = ({ events }) => {
 
     
 
-      
+      <div className="pie-container">
+        <h2>Event Genres by total events</h2>
     <ResponsiveContainer height={400}>
       <PieChart width={400} height={400}
       margin={{
@@ -54,6 +55,7 @@ const EventGenre = ({ events }) => {
           </Pie>
       </PieChart>
     </ResponsiveContainer>
+    </div>
   );
 };
 

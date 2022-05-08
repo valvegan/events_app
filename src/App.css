@@ -357,18 +357,19 @@ input[type="text"] {
   background-color: var(--contrast-color-2);
   height: 5px;
 }
-.event h2,
+.event h2, 
 .event .about {
   font-size: 1.5rem;
   color: var(--titles-secondary);
 }
-
+.pie-container h2, .scatter-chart h2{
+  text-align: center;
+}
 
 .detais-container {
   display: flex;
   flex-direction: column;
 }
-
 
 .login-button {
   color: #494949;

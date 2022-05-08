@@ -46,7 +46,10 @@ class App extends Component {
         ? "Oops! Check your internet connection, you are currently visiting the app offline (some events may not be loaded)"
         : null,
     });
-    if ((code || isTokenValid) && this.mounted) {
+    if 
+    ( 
+      //(code || isTokenValid) && 
+    this.mounted) {
       getEvents().then((events) => {
         let sliceNumber = this.state.eventsLength;
         let total = events.map((e) => e.id);
@@ -120,6 +123,8 @@ class App extends Component {
   render() {
     if (this.state.showWelcomeScreen === undefined)
       return <div className="App" />;
+    console.log(this.state.showWelcomeScreen);
+    let hideWelcome = !this.state.showWelcomeScreen
     return (
       //same as welcome page
 
@@ -136,75 +141,6 @@ class App extends Component {
           <br></br>It works offline, too!
         </h3>
 
-        <div>
-          <h2 className="sub-heading">
-            To browse through events, start by typing a city!
-          </h2>
-
-          <CitySearch
-            locations={this.state.locations}
-            updateEvents={this.updateEvents}
-          />
-          <NumberOfEvents
-            updateEvents={this.updateEvents}
-            events={this.state.events}
-            totalResNumber={this.state.totalResNumber}
-          />
-          <div
-            className={
-              this.state.buttonExpanded
-                ? "charts-container charts-container-hide"
-                : "charts-container"
-            }
-          >
-            <button
-              onClick={() => this.showDetailsToggle()}
-              className={this.state.buttonExpanded ? "show-less" : "show-more"}
-            >
-              {/**button text is hide details if state is true, otherwise it's "see details" */}
-              {this.state.buttonExpanded
-                ? "Hide data charts"
-                : "View Data Charts"}
-            </button>
-
-            {this.state.buttonExpanded && (
-              <div className="data-vis-wrapper">
-                <EventGenre events={this.state.fullEvents} />
-                <EventGenreByCity events={this.state.events} />
-                <div className="scatter-chart">
-                  <ResponsiveContainer height={300}>
-                    <ScatterChart
-                      margin={{
-                        top: 20,
-                        right: 20,
-                        bottom: 20,
-                        left: 0,
-                      }}
-                    >
-                      <CartesianGrid />
-                      <XAxis
-                        type="category"
-                        dataKey="city"
-                        name="city"
-                        allowDecimals={false}
-                      />
-                      <YAxis
-                        type="number"
-                        dataKey="number"
-                        name="number of events"
-                      />
-
-                      <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-                      <Scatter data={this.getData()} fill="#8884d8" />
-                    </ScatterChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
-            )}
-          </div>
-
-          <EventList events={this.state.events} />
-        </div>
         {
           <WelcomeScreen
             showWelcomeScreen={this.state.showWelcomeScreen}
@@ -213,6 +149,81 @@ class App extends Component {
             }}
           />
         }
+
+        {this.state.showWelcomeScreen === true && (
+          <div>
+            <h2 className="sub-heading">
+              To browse through events, start by typing a city!
+            </h2>
+
+            <CitySearch
+              locations={this.state.locations}
+              updateEvents={this.updateEvents}
+            />
+            <NumberOfEvents
+              updateEvents={this.updateEvents}
+              events={this.state.events}
+              totalResNumber={this.state.totalResNumber}
+            />
+
+            <div
+              className={
+                this.state.buttonExpanded
+                  ? "charts-container charts-container-hide"
+                  : "charts-container"
+              }
+            >
+              <button
+                onClick={() => this.showDetailsToggle()}
+                className={
+                  this.state.buttonExpanded ? "show-less" : "show-more"
+                }
+              >
+                {/**button text is hide details if state is true, otherwise it's "see details" */}
+                {this.state.buttonExpanded
+                  ? "Hide data charts"
+                  : "View Data Charts"}
+              </button>
+
+              {this.state.buttonExpanded && (
+                <div className="data-vis-wrapper">
+                  <EventGenre events={this.state.fullEvents} />
+                  <EventGenreByCity events={this.state.events} />
+                  <div className="scatter-chart">
+                    <h2>Number of total events by city</h2>
+                    <ResponsiveContainer height={300}>
+                      <ScatterChart
+                        margin={{
+                          top: 20,
+                          right: 20,
+                          bottom: 20,
+                          left: 0,
+                        }}
+                      >
+                        <CartesianGrid />
+                        <XAxis
+                          type="category"
+                          dataKey="city"
+                          name="city"
+                          allowDecimals={false}
+                        />
+                        <YAxis
+                          type="number"
+                          dataKey="number"
+                          name="number of events"
+                        />
+
+                        <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+                        <Scatter data={this.getData()} fill="#8884d8" />
+                      </ScatterChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+              )}
+            </div>
+            <EventList events={this.state.events} />
+          </div>
+        )}
       </div>
     );
   }
