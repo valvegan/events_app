@@ -2,6 +2,12 @@
 Events app is a serverless, progressive web application (PWA) created with React and using a test-driven development (TDD) technique. 
 The application uses the Google Calendar API to fetch upcoming events.
 
+## Own reflections on the project
+This project has been a completely new enbarkment into the world of serverless and testing processes for me. From serverless functions and cloud providers, to continuous delivery and integration processes, Google authorizations and private APIs...most of it was all new! The project didn't seem like much from the initial brief I had received, but obviously there was much more to than plain JavaScript code! 
+
+If I could, I would probably spend more time reading the documentation new libraries and/or frameworks. It always feels like it's a bit of a waste of time (like one could just "google it" if they don't know how to complete a small task, right? well...not everytime), but it really does help with knowing what to do and ultimately completing a task more quickly. 
+
+
 ## App features
 - [x] Events can be filtered by city
 - [x] Show/hide (more information) buttons on event entries
