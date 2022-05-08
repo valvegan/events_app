@@ -46,10 +46,10 @@ class App extends Component {
         ? "Oops! Check your internet connection, you are currently visiting the app offline (some events may not be loaded)"
         : null,
     });
-    if 
-    ( 
-      //(code || isTokenValid) && 
-    this.mounted) {
+    if (
+      (code || isTokenValid) &&
+      this.mounted
+    ) {
       getEvents().then((events) => {
         let sliceNumber = this.state.eventsLength;
         let total = events.map((e) => e.id);
@@ -124,7 +124,6 @@ class App extends Component {
     if (this.state.showWelcomeScreen === undefined)
       return <div className="App" />;
     console.log(this.state.showWelcomeScreen);
-    let hideWelcome = !this.state.showWelcomeScreen
     return (
       //same as welcome page
 
@@ -150,7 +149,7 @@ class App extends Component {
           />
         }
 
-        {this.state.showWelcomeScreen === true && (
+        {!this.state.showWelcomeScreen && (
           <div>
             <h2 className="sub-heading">
               To browse through events, start by typing a city!
