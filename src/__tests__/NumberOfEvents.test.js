@@ -3,11 +3,11 @@ import { shallow } from "enzyme";
 import NumberOfEvents from "../NumberOfEvents";
 import { mockData } from "../mock-data";
 
-describe("<CitySearch /> component", () => {
+describe("<NumberOfEvents /> component", () => {
   let NumberOfEventsWrapper;
   beforeAll(() => {
     NumberOfEventsWrapper = shallow(
-      <NumberOfEvents eNumber={mockData.length} />
+      <NumberOfEvents eNumber={mockData.length} updateEvents={() => {}} />
     );
   });
 
@@ -25,10 +25,8 @@ describe("<CitySearch /> component", () => {
 
   //input number is equal to the default state of 32
   test("renders input number correctly", () => {
-    const eventsNumber = NumberOfEventsWrapper.state("eventsNumber");
-    expect(NumberOfEventsWrapper.find("input.edit-number").prop("value")).toBe(
-      eventsNumber
-    );
+    //const eventsNumber = NumberOfEventsWrapper.state("eventsNumber");
+    expect(NumberOfEventsWrapper.find("input.edit-number")).toHaveLength(1);
   });
 
   //tests if the input number updates the state after being altered
@@ -36,11 +34,10 @@ describe("<CitySearch /> component", () => {
     NumberOfEventsWrapper.setState({
       eventsNumber: "2",
     });
-    const eventObject = { target: { value: "2" } };
-    NumberOfEventsWrapper.find("input.edit-number").simulate(
-      "change",
-      eventObject
-    );
-    expect(NumberOfEventsWrapper.state("eventsNumber")).toBe("2");
+    NumberOfEventsWrapper.find("input.edit-number").simulate("change", {
+      target: { value: "3" },
+    });
+    expect(NumberOfEventsWrapper.state("eventsNumber")).not.toEqual(undefined);
+    expect(NumberOfEventsWrapper.state("eventsNumber")).toBe("3");
   });
 });
