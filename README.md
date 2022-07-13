@@ -7,6 +7,10 @@ This project has been a completely new enbarkment into the world of serverless a
 
 If I could, I would probably spend more time reading the documentation new libraries and/or frameworks. It always feels like it's a bit of a waste of time (like one could just "google it" if they don't know how to complete a small task, right? well...not everytime), but it really does help with knowing what to do and ultimately completing a task more quickly. 
 
+## Setting up the development environment 
+1) Create-React-App (CRA, boilerplate generator)
+>npx create-react-app (application_name) --template cra-template-pwa --use-npm
+
 ## App features
 - [x] Welcome page
 <img src="images_github/welcomepage.png" height="auto" width="500" alt="welcome_page">
