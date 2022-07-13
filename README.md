@@ -8,12 +8,26 @@ This project has been a completely new enbarkment into the world of serverless a
 If I could, I would probably spend more time reading the documentation new libraries and/or frameworks. It always feels like it's a bit of a waste of time (like one could just "google it" if they don't know how to complete a small task, right? well...not everytime), but it really does help with knowing what to do and ultimately completing a task more quickly. 
 
 ## App features
+- [x] Welcome page
+<img src="images_github/welcomepage.png" height="auto" width="500" alt="welcome_page">
+
 - [x] Events can be filtered by city
+<img src="images_github/city_type.png" height="auto" width="500" alt="welcome_page">
+
 - [x] Show/hide (more information) buttons on event entries
-- [x] The even list can be altered to show more or less events (default is at 32)
+<img src="images_github/event_details.png" height="auto" width="500" alt="welcome_page">
+
+- [x] The event list can be altered to show more or less events (default is at 32) - if 0 is selected, or a higher number than the events that are available, an error message will pop up 
+<img src="images_github/warning_message.png" height="auto" width="500" alt="welcome_page">
+<img src="images_github/warning_message2.png" height="auto" width="500" alt="welcome_page">
+
 - [x] The app is available to use offline 
+
 - [x] Option to add an app shortcut to the home screen
-- [x] Chart showing the number of upcoming events by city
+
+- [x] Charts showing data regarding the upcoming events, by city and in total
+<img src="images_github/carts_1.png" height="auto" width="500" alt="chart1">
+<img src="images_github/charts_1.png" height="auto" width="500" alt="chart2">
 
 ## User stories and test scenarios
 
