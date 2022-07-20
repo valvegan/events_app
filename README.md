@@ -2,14 +2,65 @@
 Events app is a serverless, progressive web application (PWA) created with React and using a test-driven development (TDD) technique. 
 The application uses the Google Calendar API to fetch upcoming events.
 
+## Technologies
+- React 
+- Cucumber (acceptance testing)
+- Jest (unit and integration testing)
+- Puppeteer (end-to-end testing)
+- AWS Lambda (cloud provider)
+- Recharts (library for data visualisation)
+- Axios (library for asynchronous calls to the Google Calendar API)
+
 ## Own reflections on the project
 This project has been a completely new enbarkment into the world of serverless and testing processes for me. From serverless functions and cloud providers, to continuous delivery and integration processes, Google authorizations and private APIs...most of it was all new! The project didn't seem like much from the initial brief I had received, but obviously there was much more to than plain JavaScript code! 
 
 If I could, I would probably spend more time reading the documentation new libraries and/or frameworks. It always feels like it's a bit of a waste of time (like one could just "google it" if they don't know how to complete a small task, right? well...not everytime), but it really does help with knowing what to do and ultimately completing a task more quickly. 
 
 ## Setting up the development environment 
-1) Create-React-App (CRA, boilerplate generator)
+- Create-React-App (CRA, boilerplate generator)
 >npx create-react-app (application_name) --template cra-template-pwa --use-npm
+>npm install
+-Install github pages as dev dependency 
+>npm install --save-dev gh-pages
+- To add your remote URL so you can link your local project to the GitHub repository
+>git init
+>git remote add origin (github repo link)
+- To push commited changes:
+>git push --set-upstream origin main
+- to deploy
+>npm run deploy
+### Creating an Authentication Server
+- Install serverless (to create an authorization server)
+>npm install -g serverless 
+- Create a new serverless service/project using aws-nodejs
+>serverless create --template aws-nodejs --path auth-server
+- Create a package.json inside the newly created directory
+>npm init
+- Configure your AWS credentials for Serverless 
+>serverless config credentials --provider aws --key ACCESS_KEY_ID --secret SECRET_ACCESS_KEY
+- To test a serverless function locally
+>serverless invoke local --function getAuthURL
+- to deploy your serverless function
+>serverless deploy
+- Install the http-server package
+>npm install http-server -g
+- Install Axios
+>npm install axios --save
+- Install Recharts library
+>npm i --save recharts
+
+## Launch
+>npm run start
+
+## Testing
+- Install Enzyme (testing utility for React, which allows shallow rendering through Jest)
+>npm install --save-dev enzyme
+- To run tests
+>npm run test
+- Install Jest-Cucumber (for acceptance tests)
+>npm i jest-cucumber --save-dev
+- Install Puppeteer (for end to end tests)
+>npm i --save-dev puppeteer
 
 ## App features
 - [x] Welcome page
