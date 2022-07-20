@@ -2,6 +2,8 @@
 Events app is a serverless, progressive web application (PWA) created with React and using a test-driven development (TDD) technique. 
 The application uses the Google Calendar API to fetch upcoming events.
 
+### Link to [live site](https://valvegan.github.io/events_app/)
+
 ## Technologies
 - React 
 - Cucumber (acceptance testing)
@@ -29,7 +31,10 @@ If I could, I would probably spend more time reading the documentation new libra
 >git push --set-upstream origin main
 - to deploy
 >npm run deploy
+
 ### Creating an Authentication Server
+- Install the Google APIs package
+>npm install googleapis@^59.0.0 --save
 - Install serverless (to create an authorization server)
 >npm install -g serverless 
 - Create a new serverless service/project using aws-nodejs
@@ -42,6 +47,8 @@ If I could, I would probably spend more time reading the documentation new libra
 >serverless invoke local --function getAuthURL
 - to deploy your serverless function
 >serverless deploy
+- Obtain serverless API endpoints
+>serverless info
 - Install the http-server package
 >npm install http-server -g
 - Install Axios
